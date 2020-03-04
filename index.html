@@ -7,24 +7,21 @@
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1">	
 		<link rel = "stylesheet" type = "text/css" href = "BK.css">   <!-- Link to style sheet named format.css -->
-		<script type="text/javascript" src="cordova.js"></script> 
-        <script type="text/javascript" src="index.js"></script>
+		<script type="text/javascript" src="Javascript.js"></script> 
+        <script type="text/javascript" src="Javascript.js"></script>
         <title>BlueKnox.com</title>
     </head>
      <body onload="onLoad()">
+	    
 		<!-- Content: div-tag with id = "content" -->
 		<div id = "content">
 			
 			<h1><img src="logobgv2.jpg" alt="BlueKnox" width="45" height="45"> BlueKnox <img src="logobgv2.jpg" alt="BlueKnox" width="45" height="45"> </h1> 
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
+			<br><br>
 			   
 			<ul id="bleDeviceList"> </ul>  
-			
+		    
+			<br>
 			<br>
 			<div id="statusDiv"> Conection Status: Disconnected</div>
 			<br>
@@ -32,16 +29,18 @@
 			<br>
 			<div id="bleId">DeviceId:</div>
 			<div id="debugDiv"></div>
-			<br>
-			<br>
-			<br>
-			<button id='btnGiveCommand'>Speak
-			</button>
+			<br><br><br>
+			 <button id='btnGiveCommand'>Speak</button>
     <br><br>
     <span id='message'></span>
     <br><br>
-	
-	<script>
+    
+    <input id='chkOpen' type="checkbox"> Open
+    <br>
+    <input id='chkClose' type="checkbox"> Closed
+    <br>
+    
+    <script>
         var message = document.querySelector('#message');
 
         var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
@@ -59,19 +58,19 @@
         recognition.onresult = function(event) {
             var last = event.results.length - 1;
             var command = event.results[last][0].transcript;
-            message.textContent = '' + command + '.';
+            message.textContent = 'Voice Input: ' + command + '.';
 
-            if(command.toLowerCase() === 'select steve'){
-                document.querySelector('#chkSteve').checked = true;
+            if(command.toLowerCase() === 'open'){
+                document.querySelector('#chkOpen').checked = true;
             }
-            else if (command.toLowerCase() === 'select tony'){
-                document.querySelector('#chkTony').checked = true;
+            else if (command.toLowerCase() === 'close'){
+                document.querySelector('#chkClose').checked = true;
             }
-            else if (command.toLowerCase() === 'select bruce'){
-                document.querySelector('#chkBruce').checked = true;
+            if (command.toLowerCase() === 'open'){
+                document.querySelector('#chkClose').checked = false;
             }
-            else if (command.toLowerCase() === 'select nick'){
-                document.querySelector('#chkNick').checked = true;
+            else if (command.toLowerCase() === 'close'){
+                document.querySelector('#chkOpen').checked = false;
             }   
         };
 
@@ -91,22 +90,19 @@
 
     </script>
 			<input type="hidden" id="GemtInput" >
-			<br>
-			<input type="image" src="Micv2.jpg" width="150" >
-			<br>
-			
+			<div id="sendDiv"></div>
 			<br>
 			Password: <input type="password" value="1998" id="myInput">
 			<br>
 			<input type="checkbox" onclick="myFunction()">Show Password
 			<br>
 			<br>
-			<div id="sendDiv"></div>
 			<br>
 			<input type="submit" value="Submit">
 			<button id="disconnectButton"onClick="disconnect()">Disconnect</button>
 			<button id="refreshButton" onClick = "refreshDeviceList()">Refresh</button>
 			<div id="receiveDiv"></div>
 		</div>
+		
     </body>
 </html>
